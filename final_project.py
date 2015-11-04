@@ -8,6 +8,8 @@ from sklearn import metrics
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.lda import LDA
+
+from sklearn import cross_validation
 import sys
 
 sys.stdout.write("Beginning data set acquisition... ")
@@ -26,8 +28,13 @@ print("complete.")
 sys.stdout.write("Loading into datasets... ")
 sys.stdout.flush()
 
-X = training_dataset[:,2:52]
-Y = training_dataset[:,2]
+X = training_dataset[:,2:10]
+Y = training_dataset[:,1]
+
+X_train, X_test, y_train, y_test = cross_validation.train_test_split(X, Y, test_size=0.2)
+print(X_train.shape)
+print(y_train.shape)
+print(X_test.shape)
 # X_prime = testing_dataset[:,1:51]
 
 print("complete.")
@@ -41,8 +48,10 @@ models = [KNeighborsClassifier(n_neighbors=3),
           LDA(),
           GaussianNB()]
 
+model_names = ["K Neighbors", "Decison Tree", "Random Forest", "LDA", "Naive Bayes"]
+
 for i in models:
-    i.fit(X,Y)
+    i.fit(X_train, y_train)
 
 print("complete.")
 sys.stdout.write("Model prediction... ")
@@ -51,12 +60,17 @@ sys.stdout.flush()
 # predicted = model3.predict(X_prime)
 # predicted = model3.predict(X)
 
-predicted_results = [i.predict(X) for i in models]
+predicted_results = [i.predict(X_test) for i in models]
 
 print("complete.")
 
-for predicted in predicted_results:
-    print(metrics.classification_report(Y, predicted))
-    print("Accuracy: ", metrics.accuracy_score(Y, predicted))
+for predicted, model in zip(predicted_results, model_names):
+    print(metrics.classification_report(y_test, predicted))
+    print("Accuracy of ", model, ": ", metrics.accuracy_score(y_test, predicted))
     # print(metrics.roc_curve(Y, predicted))
 
+# for model in models:
+#     print(model.score(X_test, y_test))
+
+# for model in models:
+#     print(cross_validation.cross_val_score(model, X, Y, cv=5))
