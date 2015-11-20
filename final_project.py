@@ -1,13 +1,17 @@
-import  numpy                          as           np
+import  numpy                          as      np
 import  urllib
-from    sklearn.tree                   import       DecisionTreeClassifier
-from    sklearn.neighbors              import       KNeighborsClassifier
-from    sklearn.svm                    import       SVC
-from    sklearn                        import       metrics
-from    sklearn.ensemble               import       RandomForestClassifier
-from    sklearn.naive_bayes            import       GaussianNB
-from    sklearn.discriminant_analysis  import       LinearDiscriminantAnalysis  as   LDA
-from    sklearn                        import       cross_validation
+from    sklearn.tree                   import  DecisionTreeClassifier
+from    sklearn.neighbors              import  KNeighborsClassifier
+from    sklearn.svm                    import  SVC
+from    sklearn                        import  metrics
+from    sklearn.ensemble               import  RandomForestClassifier
+from    sklearn.naive_bayes            import  GaussianNB
+from    sklearn.discriminant_analysis  import  LinearDiscriminantAnalysis  as  LDA
+from    sklearn                        import  cross_validation, preprocessing
+from    sklearn.pipeline               import  make_pipeline
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import chi2
 
 import  statistics
 import  sys
@@ -29,19 +33,27 @@ print("complete.")
 sys.stdout.write("Loading into datasets... ")
 sys.stdout.flush()
 
-X = training_dataset[:,2:10]
+X = training_dataset[:,2:52]
 Y = training_dataset[:,1]
+
+X_new = SelectKBest(chi2, k=20).fit_transform(X, Y)
+
+print(X_new.shape)
 
 print("complete.")
 
 sys.stdout.write("Model fitting... ")
 sys.stdout.flush()
 
-models = [KNeighborsClassifier(n_neighbors=3),
+models = [KNeighborsClassifier(n_neighbors=50),
         DecisionTreeClassifier(),
         RandomForestClassifier(),
         LDA(),
         GaussianNB()]
+
+poly = PolynomialFeatures(2)
+
+pipelines = [make_pipeline(preprocessing.StandardScaler(), i) for i in models]
 
 model_names = ["K Neighbors", "Decison Tree", "Random Forest", "LDA", "Naive Bayes"]
 
@@ -54,7 +66,7 @@ print("complete.")
 results = []
 for model, name in zip(models, model_names):
     tmp_results = []
-    x = cross_validation.cross_val_score(model, X, Y, cv=5)
+    x = cross_validation.cross_val_score(model, X_new, Y, cv=5)
     results.append([name, statistics.mean(x), statistics.stdev(x)])
 print()
 print(tabulate(results, headers=["Model", "Accuracy", "+/-"]))
