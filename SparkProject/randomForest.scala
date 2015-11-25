@@ -30,3 +30,10 @@ val labelAndPreds = testData.map { point =>
 }
 
 val metrics = new BinaryClassificationMetrics(labelAndPreds)
+val auc = metrics.areaUnderROC()
+
+println("AUC = " + auc)
+
+val testErr = labelAndPreds.filter(r => r._1 != r._2).count.toDouble / testData.count()
+println("Test Error = " + testErr)
+//println("Learned classification forest model:\n" + model.toDebugString)
