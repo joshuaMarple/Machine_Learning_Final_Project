@@ -1,0 +1,75 @@
+The description of the training and test data sets is as follows:
+
+Training Data:
+
+Number of instances:  72326
+1st column is enrollment ID, which corresponds to a user's enrollment in a course
+2nd column is label
+The rest of the columns are features
+
+Test Data:
+
+Number of instances: 48216
+1st column is enrollment ID
+The rest of the columns are features
+
+
+Features:
+
+Number of features: 50
+
+Course related features:
+Number of modules in the course
+Number of chapters in the course
+Number of problems in the course
+Number of videos in the course
+Number of discussions in the course
+Number of peergrading in the course
+Number of users  who enrolled the course
+Number of activities from users enrolled the course
+The ratio between number of chapters accessed by users and the total number of chapters in the course
+Number of Dropout for the course
+Max duration among all users 
+Average duration for the course
+Min number of days spent on the course among all users
+Average number of days spent on the course
+
+User related features:
+Number of Courses enrolled by the user
+Min number of activities per day
+Max number of activities per day
+Average number of activities per day
+Max duration among all courses enrolled by the user
+Min duration among all courses enrolled by the user
+Avreage duration over all courses enrolled by the user
+Max number of days spent on a course
+Min number of days spent on a course
+Average number of days spent on a course
+
+Enrollment related features:
+Max interval between days when there are activities
+Min interval between days when there are activities
+Average interval between days when there are activities
+Min number of activities per day
+Max number of activities per day
+Average number of activities per day
+Duration of the enrollment
+Number of activities
+Number of spent days
+The ratio between the number of aceesses in the Morning and the total number of accesses.
+The ratio between the number of aceesses in the Evening and the total number of accesses.
+The ratio between the number of aceesses at Night and the total number of accesses.
+The ratio between number of chapters accessed by the user and the total number of chapters in the course
+The ratio between number of problems accessed by the user and the total number of problems in the course
+The ratio between number of videos accessed by the user and the total number of videos in the course
+Times of visiting wiki
+Times of participating discussion
+Number of activities during week days
+Number of activities during week ends
+Time difference in days between the start data of the course and the first day the user accessed the course
+Max number of consecutive days
+The ratio between the number of activities for the enrollment and the average number of activities for the course
+The average length of time spent on the course per day 
+The max length of time spent on the course per day 
+The min length of time spent on the course per day  
+Time difference in days between the end data of the course and the last day the user accessed the course
