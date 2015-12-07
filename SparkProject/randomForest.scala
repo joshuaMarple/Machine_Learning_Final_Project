@@ -1,22 +1,24 @@
 import org.apache.spark.mllib.tree.RandomForest
 import org.apache.spark.mllib.util.MLUtils
 import org.apache.spark.mllib.evaluation.BinaryClassificationMetrics
+import org.apache.spark.mllib.regression.LabeledPoint
+import org.apache.spark.mllib.linalg.Vectors
 
-val trainData = sc.textFile("/Users/wesleyhoffman/Documents/EECS738/FinalProject/EECS738_Train.csv")
+val trainData = sc.textFile("/Users/wesleyhoffman/Documents/EECS738/Machine_Learning_Final_Project/SparkProject/EECS738_Train.csv")
 val parsedTrainData = trainData.map { line =>
   val parts = line.split(',').map(_.toDouble)
   LabeledPoint(parts(1), Vectors.dense(parts.drop(2)))
 }
 
-//Split the data into training and test sets (30% held out for testing)
-val splits = parsedTrainData.randomSplit(Array(0.7, 0.3))
+//Split the data into training and test sets (20% held out for testing)
+val splits = parsedTrainData.randomSplit(Array(0.8, 0.2))
 val (trainingData, testData) = (splits(0), splits(1))
 
 //Train RandomForest Model
 val numClasses = 2
 val categoricalFeaturesInfo = Map[Int, Int]()
 val numTrees = 12
-val featurSubsetStrategy = "auto"
+val featureSubsetStrategy = "auto"
 val impurity = "gini"
 val maxDepth = 7
 val maxBins = 32
