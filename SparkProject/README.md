@@ -10,7 +10,7 @@ code on your local machine, I recommend using the following Spark booting parame
 
     ./bin/spark-shell --master local[2]
     
-The --master option specifies the master URL for a distributed cluster, or local to run locally with one thread, or local[N] to run locally with N threads. You should start by using local for testing. For a full list of options, run Spark shell with the --help option.
+The --master option specifies the [master URL for a distributed cluster](http://spark.apache.org/docs/latest/submitting-applications.html#master-urls), or local to run locally with one thread, or local[N] to run locally with N threads. You should start by using local for testing. For a full list of options, run Spark shell with the --help option.
     
 Now we want to load the RF code into the Spark workflow:
 
