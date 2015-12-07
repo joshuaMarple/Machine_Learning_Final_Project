@@ -1,3 +1,20 @@
+#Random Forest Using Apache Spark
+
+In order to use my Random Forest spark code, spark must be installed on the
+system you are using. I have included the installation documentation for
+Apache Spark.
+
+##Running the code
+The easiest way to start using Spark is through the Scala shell:
+
+    ./bin/spark-shell
+    
+Now we want to load the RF code into the Spark workflow:
+
+    scala> :load /path/to/randomForest.scala
+    
+Note: The path to the data files in the code base will need to be changed based
+on where you are storing the csv data files.
 
 # Apache Spark
 
