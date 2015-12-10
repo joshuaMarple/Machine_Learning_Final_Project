@@ -9,7 +9,7 @@ val parsedTrainData = trainData.map { line =>
   val parts = line.split(',').map(_.toDouble)
   LabeledPoint(parts(1), Vectors.dense(parts.drop(2)))
 }
-
+     sdfds
 //Split the data into training and test sets (20% held out for testing)
 val splits = parsedTrainData.randomSplit(Array(0.7, 0.3))
 val (trainingData, testData) = (splits(0), splits(1))
