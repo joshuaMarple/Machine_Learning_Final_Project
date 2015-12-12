@@ -4,20 +4,31 @@ In order to use my Random Forest spark code, spark must be installed on the
 system you are using. I have included the installation documentation for
 Apache Spark.
 
-##Running the code
-The easiest way to start using Spark is through the Scala shell.  If you are running the
-code on your local machine, I recommend using the following Spark booting parameters:
+##Running randomForest.scala
+The easiest way to start using Spark is through the Scala shell.  If you are running the code on your local machine, I recommend using the following Spark booting parameters:
 
-    ./bin/spark-shell --master local[2]
-    
-The --master option specifies the [master URL for a distributed cluster](http://spark.apache.org/docs/latest/submitting-applications.html#master-urls), or local to run locally with one thread, or local[N] to run locally with N threads. You should start by using local for testing. For a full list of options, run Spark shell with the --help option.
-    
+    ./bin/spark-shell --master local
+
 Now we want to load the RF code into the Spark workflow:
 
     scala> :load /path/to/randomForest.scala
+
+##Running randomForestPL.scala
+This is a pipelined version of Random Forest for Spark. It uses a beta library
+part of MLLib named simply ML. It tries to emulate the pipeline structure of
+scikit-learn project. I built this code to run as a standalone Spark job and not a single run script. Spark requires a .jar so that all package dependencies can
+be wrapped up in one nice box. I did this with maven. The following code will show you how to launch the project.
+
+Note: Make sure you are in the folder randomForestPL
+
+    mvn clean package
     
+    spark-submit --class "com.randomForest.RndmForst" --master local target/random-forest-pipeline-1.0.jar
+
 Note: The path to the data files in the code base will need to be changed based
 on where you are storing the csv data files.
+
+Note: The --master option specifies the [master URL for a distributed cluster](http://spark.apache.org/docs/latest/submitting-applications.html#master-urls), or local to run locally with one thread, or local[N] to run locally with N threads. You should start by using local for testing. For a full list of options, run Spark shell with the --help option.
 
 # Apache Spark
 
