@@ -18,7 +18,7 @@ from sklearn.metrics import matthews_corrcoef, make_scorer, roc_auc_score
 import skflow
 from sklearn import datasets, metrics, preprocessing
 
-from sklearn.grid_search import GridSearchCV
+from sklearn.grid_search import GridSearchCV, RandomizedSearchCV
 
 import  sys
 from    tabulate    import  tabulate
@@ -63,13 +63,14 @@ def report(grid_scores, n_top=3):
 
 X_new = SelectKBest(chi2, k=20).fit_transform(X, Y)
 
+X = X_new
+X = preprocessing.normalize(X)
 print(X_new.shape)
 
 print("complete.")
 
 sys.stdout.write("Model fitting... ")
 sys.stdout.flush()
-
 
 ###############################################################################
 ## Define Models
@@ -79,22 +80,16 @@ models = [KNeighborsClassifier(n_neighbors=150, n_jobs = -1),
         RandomForestClassifier(n_jobs = -1, n_estimators = 20),
         LDA()]
 
-
-
-poly = PolynomialFeatures(2)
-
-pipelines = [make_pipeline(preprocessing.StandardScaler(), i) for i in models]
-
 model_names = ["K Neighbors", "Random Forest", "LDA"]
-param_grids = [[{'n_neighbors': [1, 5, 10, 50, 200, 1000],
+param_grids = [{'n_neighbors': [1, 5, 10, 50, 200, 1000],
                   'algorithm' : ['auto', 'ball_tree', 'kd_tree', 'brute'],
-                  'p' : [1, 2, 3, 4, 5]}],
-              [{'n_estimators': [1, 5, 10, 20, 50, 200],
+                  'p' : [1, 2, 3, 4, 5]},
+              {'n_estimators': [1, 5, 10, 20, 50, 200],
                   'criterion': ['gini', 'entropy'],
-                  'max_features': ['auto', 'sqrt', 'log2']}],
-              [{'solver': ['svd', 'lsqr'],
-                  'shrinkage': [None, 'auto', 0.1, 0.2, 0.4, 0.5, 0.6, 0.8, 0.9, 1],
-                  'n_components': list(range(1, 20, 5))}]]
+                  'max_features': ['auto', 'sqrt', 'log2']},
+              {'solver': ['svd', 'lsqr'],
+                  # 'shrinkage': [None, 'auto', 0.1, 0.2, 0.4, 0.5, 0.6, 0.8, 0.9, 1],
+                  'n_components': list(range(1, 20, 5))}]
 
 print("complete.")
 sys.stdout.write("Model prediction... ")
@@ -110,13 +105,13 @@ mcc_scorer = make_scorer(matthews_corrcoef)
 auc_scorer = make_scorer(roc_auc_score)
 
 ###############################################################################
-## Grid Search
+## Randomized Search
 ###############################################################################
 sys.stdout.write("Grid Search... ")
 sys.stdout.flush()
 new_models = []
 for model, name, param_grid in zip(models, model_names, param_grids):
-    grid_search = GridSearchCV(model, param_grid, scoring=auc_scorer, cv=5)
+    grid_search = RandomizedSearchCV(model, param_grid, n_iter=50, scoring=auc_scorer, cv=5)
     grid_search.fit(X,Y)
     print(grid_search.best_estimator_)
     new_models.append(grid_search.best_estimator_)
