@@ -8,11 +8,14 @@ import org.apache.spark.ml.classification.RandomForestClassifier
 import org.apache.spark.ml.classification.RandomForestClassificationModel
 import org.apache.spark.ml.feature.{StringIndexer, IndexToString, VectorIndexer}
 import org.apache.spark.ml.evaluation.BinaryClassificationEvaluator
-import org.apache.spark.ml.evaluation.MulticlassClassificationEvaluator
 import org.apache.spark.ml.tuning.{ParamGridBuilder, CrossValidator}
 import org.apache.spark.mllib.util.MLUtils
 import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.mllib.linalg.Vectors
+import org.apache.spark.mllib.evaluation.MulticlassMetrics
+import org.apache.spark.mllib.stat.Statistics
+
+
 
 object RndmForst{
   def main(args: Array[String]){
@@ -28,8 +31,6 @@ object RndmForst{
       LabeledPoint(parts(1), Vectors.dense(parts.drop(2)))
     }
     val dataDF = sqlContext.createDataFrame(parsedTrainData.map{p => (p.label,p.features)}).toDF("label", "features")
-
-    val paramGrid = new ParamGridBuilder().build()
 
     // Index labels, adding metadata to the label column.
     // Fit on whole dataset to include all labels in index.
@@ -64,23 +65,43 @@ object RndmForst{
     val pipeline = new Pipeline()
       .setStages(Array(labelIndexer, featureIndexer, rf, labelConverter))
 
+    val paramGrid = new ParamGridBuilder()
+      .addGrid(rf.numTrees, {(20 to 200 by 3).toArray})
+      .addGrid(rf.maxDepth, {(1 to 10 by 2).toArray})
+      .build
+
     val cv = new CrossValidator()
       .setEstimator(pipeline)
       .setEvaluator(new BinaryClassificationEvaluator)
       .setEstimatorParamMaps(paramGrid)
-      .setNumFolds(10) // Use 3+ in practice
+      .setNumFolds(5) // Use 3+ in practice
 
-    // Select (prediction, true label) and compute test error
-    // Train model.  This also runs the indexers.
     val model = cv.fit(trainingData)
+    println("Parameters after cross valiation:")
+    model.params.foreach(println)
     //
     // Make predictions.
     val predictions = model.transform(testData)
-    val evaluator = new MulticlassClassificationEvaluator()
+
+    val labelAndPrediction = predictions.map{
+      point => (point.getDouble(0), point.getString(7).toDouble)
+    }
+
+    val metrics = new MulticlassMetrics(labelAndPrediction)
+    // val tpr = metrics.truePositiveRate(1.0)
+    // val fpr = metrics.falsePositiveRate(1.0)
+    // val tnr = metrics.truePositiveRate(0.0)
+    // val fnr = metrics.falsePositiveRate(0.0)
+    // val mcc = ((tpr*tnr)-(fpr-fnr))/Math.sqrt((tpr+fpr)*(tpr+fnr)*(tnr+fpr)*(tnr*fnr))
+    val chiSqr = Statistics.chiSqTest(metrics.confusionMatrix)
+    val MCC = Math.sqrt(chiSqr.statistic/labelAndPrediction.count)
+
+    val evaluator = new BinaryClassificationEvaluator()
       .setLabelCol("indexedLabel")
-      .setPredictionCol("prediction")
-      .setMetricName("precision")
-    val accuracy = evaluator.evaluate(predictions)
-    println("Test Error = " + (1.0 - accuracy))
+      .setRawPredictionCol("rawPrediction")
+    val AUROC = evaluator.evaluate(predictions)
+
+    println("Area Under ROC = " + AUROC + "vs Evaluator (Possible AUC) = " + model.getEvaluator)
+    println("Matthews Correlation Coefficient = " + MCC)
   }
 }
