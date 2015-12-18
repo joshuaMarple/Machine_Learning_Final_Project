@@ -108,43 +108,43 @@ auc_scorer = make_scorer(roc_auc_score)
 ## Randomized Search
 ###############################################################################
 
-# sys.stdout.write("Grid Search... ")
-# sys.stdout.flush()
-# new_models = []
-# for model, name, param_grid in zip(models, model_names, param_grids):
-#     grid_search = RandomizedSearchCV(model, param_grid, n_iter=20, scoring=auc_scorer, cv=5)
-#     grid_search.fit(X,Y)
-#     print(grid_search.best_estimator_)
-#     new_models.append(grid_search.best_estimator_)
-#     print(grid_search.grid_scores_)
-# print("complete.")
-# models = new_models
+sys.stdout.write("Grid Search... ")
+sys.stdout.flush()
+new_models = []
+for model, name, param_grid in zip(models, model_names, param_grids):
+    grid_search = RandomizedSearchCV(model, param_grid, n_iter=20, scoring=auc_scorer, cv=5)
+    grid_search.fit(X,Y)
+    print(grid_search.best_estimator_)
+    new_models.append(grid_search.best_estimator_)
+    print(grid_search.grid_scores_)
+print("complete.")
+models = new_models
 
 ###############################################################################
 ## Run Models
 ###############################################################################
 
-# for i in range(1, 20):
-#     results = []
-#     for model, name, param_grid in zip(models, model_names, param_grids):
-#         tmp_results = []
-#         auc_sum = 0
-#         mcc_sum = 0
-#         folds = 5
-#         kf = StratifiedKFold(Y, folds)
-#         for train_index, test_index in kf:
-#             X_train, X_test = X[train_index], X[test_index]
-#             y_train, y_test = Y[train_index], Y[test_index]
-#             model.fit(X_train, y_train)
-#             pred_class = model.predict(X_test)
-#             pred_test = model.predict_proba(X_test)[:, 1]
+for i in range(1, 20):
+    results = []
+    for model, name, param_grid in zip(models, model_names, param_grids):
+        tmp_results = []
+        auc_sum = 0
+        mcc_sum = 0
+        folds = 5
+        kf = StratifiedKFold(Y, folds)
+        for train_index, test_index in kf:
+            X_train, X_test = X[train_index], X[test_index]
+            y_train, y_test = Y[train_index], Y[test_index]
+            model.fit(X_train, y_train)
+            pred_class = model.predict(X_test)
+            pred_test = model.predict_proba(X_test)[:, 1]
 
-#             auc_sum += metrics.roc_auc_score(y_test, pred_test)
-#             mcc_sum += metrics.matthews_corrcoef(y_test, pred_class)
+            auc_sum += metrics.roc_auc_score(y_test, pred_test)
+            mcc_sum += metrics.matthews_corrcoef(y_test, pred_class)
 
-#         results.append([name, mcc_sum/folds, auc_sum/folds])
-#     print("Iteration: " + str( i ))
-#     print(tabulate(results, headers=["Model", "MCC", "AUC"]))
+        results.append([name, mcc_sum/folds, auc_sum/folds])
+    print("Iteration: " + str( i ))
+    print(tabulate(results, headers=["Model", "MCC", "AUC"]))
 
 ###############################################################################
 ## Predict Results

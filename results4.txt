@@ -1,0 +1,134 @@
+python final_project.py
+Beginning data set acquisition... complete.
+Loading into datasets... complete.
+Model fitting... complete.
+Model prediction... complete.
+Grid Search... KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=50, p=1,
+           weights='uniform')
+[mean: 0.69677, std: 0.03365, params: {'algorithm': 'brute', 'n_neighbors': 50, 'p': 2}, mean: 0.67797, std: 0.02464, params: {'algorithm': 'auto', 'n_neighbors': 1000, 'p': 4}, mean: 0.67534, std: 0.02788, params: {'algorithm': 'brute', 'n_neighbors': 5, 'p': 3}, mean: 0.67732, std: 0.02446, params: {'algorithm': 'ball_tree', 'n_neighbors': 1000, 'p': 5}, mean: 0.65151, std: 0.02202, params: {'algorithm': 'ball_tree', 'n_neighbors': 1, 'p': 5}, mean: 0.68006, std: 0.02482, params: {'algorithm': 'kd_tree', 'n_neighbors': 1000, 'p': 3}, mean: 0.65214, std: 0.02225, params: {'algorithm': 'auto', 'n_neighbors': 1, 'p': 4}, mean: 0.65804, std: 0.02245, params: {'algorithm': 'auto', 'n_neighbors': 1, 'p': 1}, mean: 0.68861, std: 0.02982, params: {'algorithm': 'auto', 'n_neighbors': 200, 'p': 3}, mean: 0.68995, std: 0.02323, params: {'algorithm': 'kd_tree', 'n_neighbors': 1000, 'p': 1}, mean: 0.68743, std: 0.02957, params: {'algorithm': 'auto', 'n_neighbors': 200, 'p': 4}, mean: 0.70514, std: 0.03426, params: {'algorithm': 'auto', 'n_neighbors': 50, 'p': 1}, mean: 0.70254, std: 0.03571, params: {'algorithm': 'ball_tree', 'n_neighbors': 10, 'p': 4}, mean: 0.65214, std: 0.02225, params: {'algorithm': 'kd_tree', 'n_neighbors': 1, 'p': 4}, mean: 0.68743, std: 0.02957, params: {'algorithm': 'brute', 'n_neighbors': 200, 'p': 4}, mean: 0.70213, std: 0.03546, params: {'algorithm': 'auto', 'n_neighbors': 10, 'p': 5}, mean: 0.65209, std: 0.02231, params: {'algorithm': 'ball_tree', 'n_neighbors': 1, 'p': 4}, mean: 0.68743, std: 0.02957, params: {'algorithm': 'kd_tree', 'n_neighbors': 200, 'p': 4}, mean: 0.65156, std: 0.02076, params: {'algorithm': 'ball_tree', 'n_neighbors': 1, 'p': 3}, mean: 0.70297, std: 0.03572, params: {'algorithm': 'brute', 'n_neighbors': 10, 'p': 3}]
+RandomForestClassifier(bootstrap=True, class_weight=None, criterion='entropy',
+            max_depth=None, max_features='auto', max_leaf_nodes=None,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=-1,
+            oob_score=False, random_state=None, verbose=0,
+            warm_start=False)
+[mean: 0.74751, std: 0.03922, params: {'criterion': 'entropy', 'max_features': 'log2', 'n_estimators': 10}, mean: 0.74571, std: 0.03895, params: {'criterion': 'gini', 'max_features': 'sqrt', 'n_estimators': 200}, mean: 0.69285, std: 0.02052, params: {'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 1}, mean: 0.72479, std: 0.03255, params: {'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 5}, mean: 0.74587, std: 0.03728, params: {'criterion': 'gini', 'max_features': 'log2', 'n_estimators': 50}, mean: 0.69005, std: 0.02372, params: {'criterion': 'gini', 'max_features': 'log2', 'n_estimators': 1}, mean: 0.68955, std: 0.02237, params: {'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 1}, mean: 0.74781, std: 0.03746, params: {'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}, mean: 0.72685, std: 0.03263, params: {'criterion': 'gini', 'max_features': 'log2', 'n_estimators': 5}, mean: 0.74514, std: 0.03724, params: {'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}, mean: 0.74780, std: 0.03566, params: {'criterion': 'entropy', 'max_features': 'sqrt', 'n_estimators': 10}, mean: 0.72624, std: 0.03618, params: {'criterion': 'gini', 'max_features': 'sqrt', 'n_estimators': 5}, mean: 0.74863, std: 0.03524, params: {'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 10}, mean: 0.74568, std: 0.03957, params: {'criterion': 'gini', 'max_features': 'sqrt', 'n_estimators': 20}, mean: 0.74533, std: 0.03736, params: {'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 50}, mean: 0.74488, std: 0.03733, params: {'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 200}, mean: 0.74724, std: 0.03829, params: {'criterion': 'entropy', 'max_features': 'log2', 'n_estimators': 50}, mean: 0.74558, std: 0.03741, params: {'criterion': 'gini', 'max_features': 'log2', 'n_estimators': 200}, mean: 0.74587, std: 0.03696, params: {'criterion': 'entropy', 'max_features': 'log2', 'n_estimators': 200}, mean: 0.74666, std: 0.03741, params: {'criterion': 'gini', 'max_features': 'log2', 'n_estimators': 20}]
+LinearDiscriminantAnalysis(n_components=1, priors=None, shrinkage=1,
+              solver='lsqr', store_covariance=False, tol=0.0001)
+[mean: 0.58083, std: 0.02052, params: {'n_components': 16, 'shrinkage': 'auto', 'solver': 'lsqr'}, mean: 0.58083, std: 0.02052, params: {'n_components': 11, 'shrinkage': 'auto', 'solver': 'lsqr'}, mean: 0.56759, std: 0.01668, params: {'n_components': 11, 'shrinkage': 0.4, 'solver': 'lsqr'}, mean: 0.50000, std: 0.00000, params: {'n_components': 6, 'shrinkage': 'auto', 'solver': 'eigen'}, mean: 0.56484, std: 0.01601, params: {'n_components': 6, 'shrinkage': 0.1, 'solver': 'lsqr'}, mean: 0.50000, std: 0.00000, params: {'n_components': 16, 'shrinkage': 0.8, 'solver': 'eigen'}, mean: 0.61077, std: 0.02488, params: {'n_components': 1, 'shrinkage': 1, 'solver': 'lsqr'}, mean: 0.57065, std: 0.01722, params: {'n_components': 6, 'shrinkage': 0.5, 'solver': 'lsqr'}, mean: 0.50000, std: 0.00000, params: {'n_components': 16, 'shrinkage': 'auto', 'solver': 'eigen'}, mean: 0.50000, std: 0.00000, params: {'n_components': 11, 'shrinkage': 0.5, 'solver': 'eigen'}, mean: 0.50000, std: 0.00000, params: {'n_components': 1, 'shrinkage': 0.8, 'solver': 'eigen'}, mean: 0.50000, std: 0.00000, params: {'n_components': 6, 'shrinkage': 0.8, 'solver': 'eigen'}, mean: 0.50000, std: 0.00000, params: {'n_components': 16, 'shrinkage': 0.6, 'solver': 'eigen'}, mean: 0.50000, std: 0.00000, params: {'n_components': 16, 'shrinkage': 0.1, 'solver': 'eigen'}, mean: 0.50000, std: 0.00000, params: {'n_components': 16, 'shrinkage': 1, 'solver': 'eigen'}, mean: 0.50000, std: 0.00000, params: {'n_components': 6, 'shrinkage': 0.4, 'solver': 'eigen'}, mean: 0.58083, std: 0.02052, params: {'n_components': 1, 'shrinkage': 'auto', 'solver': 'lsqr'}, mean: 0.50000, std: 0.00000, params: {'n_components': 1, 'shrinkage': 0.1, 'solver': 'eigen'}, mean: 0.50000, std: 0.00000, params: {'n_components': 6, 'shrinkage': 0.1, 'solver': 'eigen'}, mean: 0.50000, std: 0.00000, params: {'n_components': 6, 'shrinkage': 0.5, 'solver': 'eigen'}]
+complete.
+Iteration: 1
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.530582  0.839397
+LDA            0.265621  0.771082
+Iteration: 2
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.52931   0.839151
+LDA            0.265621  0.771082
+Iteration: 3
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.526443  0.837201
+LDA            0.265621  0.771082
+Iteration: 4
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.530289  0.837178
+LDA            0.265621  0.771082
+Iteration: 5
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.524442  0.839433
+LDA            0.265621  0.771082
+Iteration: 6
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.530968  0.840095
+LDA            0.265621  0.771082
+Iteration: 7
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.527769  0.839141
+LDA            0.265621  0.771082
+Iteration: 8
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.527237  0.837298
+LDA            0.265621  0.771082
+Iteration: 9
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.528849  0.839667
+LDA            0.265621  0.771082
+Iteration: 10
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.532807  0.839888
+LDA            0.265621  0.771082
+Iteration: 11
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.531163  0.839296
+LDA            0.265621  0.771082
+Iteration: 12
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.526426  0.83803
+LDA            0.265621  0.771082
+Iteration: 13
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.526881  0.839197
+LDA            0.265621  0.771082
+Iteration: 14
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.527514  0.837343
+LDA            0.265621  0.771082
+Iteration: 15
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.526829  0.837004
+LDA            0.265621  0.771082
+Iteration: 16
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.525696  0.837947
+LDA            0.265621  0.771082
+Iteration: 17
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.530465  0.839044
+LDA            0.265621  0.771082
+Iteration: 18
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.528675  0.836604
+LDA            0.265621  0.771082
+Iteration: 19
+Model               MCC       AUC
+-------------  --------  --------
+K Neighbors    0.461366  0.831063
+Random Forest  0.531743  0.83913
+LDA            0.265621  0.771082
